@@ -1,0 +1,116 @@
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# This will store posts temporarily, a more robust implementation would use a database.
+posts = []
+
+@app.route('/')
+def index():
+    return render_template('index.html', posts=posts)
+
+@app.route('/submit', methods=['POST'])
+def submit_post():
+    username = request.form['username']
+    title = request.form['title']
+    content = request.form['content']
+    
+    if username and title and content:
+        post = {'username': username, 'title': title, 'content': content}
+        posts.append(post)
+        return redirect(url_for('index'))
+    else:
+        return "Please fill all the fields", 400
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+//////////////////////
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatAI Discussion Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>ChatAI Discussion Board</h1>
+    <form action="/submit" method="POST">
+        <input type="text" name="username" placeholder="Your Name" required><br>
+        <input type="text" name="title" placeholder="Title" required><br>
+        <textarea name="content" placeholder="Share your experience or tips" required></textarea><br>
+        <button type="submit">Post</button>
+    </form>
+
+    <h2>Posts</h2>
+    <div class="posts">
+        {% for post in posts %}
+            <div class="post">
+                <h3>{{ post.title }}</h3>
+                <p><strong>{{ post.username }}</strong>: {{ post.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
+/////////////////////////////
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.posts {
+    margin-top: 20px;
+}
+
+.post {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin: 0;
+    color: #007bff;
+}
+
+.post p {
+    margin: 5px 0;
+}
