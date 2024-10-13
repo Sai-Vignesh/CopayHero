@@ -1,0 +1,22 @@
+[
+    {
+        "pharmacy_name": "walgreens",
+        "price": "$845.09How is this calculated?Price if you don\u2019t  sign up:$848.09One-time signup bonus:-$3.00Price with free signup:$845.09Signup bonus and member savings are automatically applied to your price when you fill an eligible prescription.Sign up for freePrice withsignup$3 off withsignupwithsignup"
+    },
+    {
+        "pharmacy_name": "cvs pharmacy",
+        "price": "$896.13How is this calculated?Price if you don\u2019t  sign up:$899.13One-time signup bonus:-$3.00Price with free signup:$896.13Signup bonus and member savings are automatically applied to your price when you fill an eligible prescription.Sign up for freePrice withsignup$3 off withsignupwithsignup"
+    },
+    {
+        "pharmacy_name": "shaws pharmacy",
+        "price": "$908.36How is this calculated?Price if you don\u2019t  sign up:$911.36One-time signup bonus:-$3.00Price with free signup:$908.36Signup bonus and member savings are automatically applied to your price when you fill an eligible prescription.Sign up for freePrice withsignup$3 off withsignupwithsignup"
+    },
+    {
+        "pharmacy_name": "stop shop",
+        "price": "$995.89"
+    },
+    {
+        "pharmacy_name": "costco",
+        "price": "$1,077"
+    }
+]
