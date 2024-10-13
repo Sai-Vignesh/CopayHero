@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnVoNmp6a2tpanR3OGQ1YzU2NmF0Ymdud256NzN5NjhkM2MwM3I3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YrTJKOe0FhQJAUXTyp/giphy.gif);
+    background-position: center;
+    background-size: cover;
+    padding-left: 4%;
+    padding-right: 4%;
+    box-sizing: border-box;
+}
+
+.navbar {
+    height: 12%;
+    display: flex;
+    align-items: center;
+}
+
+nav{
+    flex: 1;
+    text-align: right;
+}
+
+.logo {
+    width:200px;
+    cursor: pointer;
+    margin-top: 70px;
+    font-size: 19px;
+}
+.logo:hover
+{
+    transform: scale(1.1);
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: rgb(21, 0, 255); /* Change color on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+.row {
+    display: flex;
+    height: 88%;
+    align-items: center;
+    
+}
+
+.col {
+    flex: 10%;
+
+}
+
+h1 {
+    color:aquamarine;
+    font-size: 100px;
+    
+}
+h1:hover
+{
+    transform: scale(1.1);
+    outline-color: aquamarine;
+}
+p {
+    color:aliceblue;
+    font-size: 19px;
+    line-height: 30px;
+
+}
+
+.menu-icon {
+    width: 50px;
+    cursor: pointer;
+}
+.menu-icon:hover
+{
+    transform: scale(1.2);
+}
+button {
+    width: 180px;
+    color:rgb(1, 4, 4);
+    background-color: rgb(24, 181, 178);
+    font-size: 12px;
+    padding: 20px;
+    border: 0;
+    border-radius: 20px;
+    outline: none;
+    margin-top: 30px;
+}
+
+button:hover
+{
+    background-color: rgb(158, 179, 26);
+    transform: scale(1.1);
+
+}
+footer {
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(24, 181, 178);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    list-style: none;
+    text-decoration: none;
+    text-align: right;
+}
+
+.card {
+    width: 200px;
+    height: 230px;
+    cursor: pointer;
+    margin: 10px 15px;
+     
+}
+.card:hover
+{
+    transform: scale(1.1);
+
+}

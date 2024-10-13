@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .signup-container {
+            width: 400px;
+            max-width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus {
+            border-color: #4CAF50;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        #signupButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #signupButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Enter your first name" required>
+                <div id="firstNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Enter your last name" required>
+                <div id="lastNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <div id="passwordError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                <div id="confirmPasswordError" class="error"></div>
+            </div>
+            <button type="button" id="signupButton">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupButton').addEventListener('click', function () {
+            // Clear previous errors
+            clearErrors();
+
+            // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            let valid = true;
+
+            // Validate first name
+            if (firstName === '') {
+                valid = false;
+                document.getElementById('firstNameError').innerText = 'First name is required';
+            }
+
+            // Validate last name
+            if (lastName === '') {
+                valid = false;
+                document.getElementById('lastNameError').innerText = 'Last name is required';
+            }
+
+            // Validate email
+            if (!validateEmail(email)) {
+                valid = false;
+                document.getElementById('emailError').innerText = 'Please enter a valid email address';
+            }
+
+            // Validate password
+            if (password.length < 6) {
+                valid = false;
+                document.getElementById('passwordError').innerText = 'Password must be at least 6 characters long';
+            }
+
+            // Validate confirm password
+            if (password !== confirmPassword) {
+                valid = false;
+                document.getElementById('confirmPasswordError').innerText = 'Passwords do not match';
+            }
+
+            // If valid, simulate form submission
+            if (valid) {
+                alert('Sign-up successful!');
+                // Simulate form submission (you can replace this with actual server request)
+            }
+        });
+
+        // Function to clear error messages
+        function clearErrors() {
+            document.getElementById('firstNameError').innerText = '';
+            document.getElementById('lastNameError').innerText = '';
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('passwordError').innerText = '';
+            document.getElementById('confirmPasswordError').innerText = '';
+        }
+
+        // Function to validate email using a regular expression
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>

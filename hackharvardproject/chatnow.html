@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .chat-container {
+            width: 400px;
+            max-width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+            max-height: 400px;
+        }
+
+        .input-box {
+            display: flex;
+            padding: 10px;
+        }
+
+        #userInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #sendButton {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #sendButton:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            margin: 10px 0;
+        }
+
+        .user-message {
+            text-align: right;
+            color: #333;
+        }
+
+        .bot-message {
+            text-align: left;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>AI Chatbot</h2>
+        </div>
+        <div id="chatbox" class="chat-box">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" />
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+        document.getElementById("userInput").addEventListener("keypress", function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const userInput = document.getElementById("userInput").value.trim();
+            if (userInput === "") return;
+
+            // Display user message
+            appendMessage("user", userInput);
+
+            // Clear input field
+            document.getElementById("userInput").value = "";
+
+            // Simulate sending the message to a backend (API)
+            fetchChatbotResponse(userInput);
+        }
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+
+            if (sender === "user") {
+                messageElement.classList.add("user-message");
+                messageElement.innerText = `You: ${message}`;
+            } else {
+                messageElement.classList.add("bot-message");
+                messageElement.innerText = `Bot: ${message}`;
+            }
+
+            const chatbox = document.getElementById("chatbox");
+            chatbox.appendChild(messageElement);
+            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+        }
+
+        function fetchChatbotResponse(userMessage) {
+            // Example of sending a message to a backend API
+            // Replace the URL with your actual API endpoint
+            fetch("https://example.com/api/chatbot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendMessage("bot", data.reply);  // Replace "data.reply" with the actual response key
+            })
+            .catch(error => {
+                appendMessage("bot", "Oops, something went wrong.");
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
