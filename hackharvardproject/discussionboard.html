@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Board</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+
+        .board-container {
+            width: 600px;
+            max-width: 90%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        #postButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #postButton:hover {
+            background-color: #45a049;
+        }
+
+        .discussion-board {
+            margin-top: 30px;
+        }
+
+        .message {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message p {
+            margin-bottom: 5px;
+        }
+
+        .message .name {
+            font-weight: bold;
+        }
+
+        .message .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="board-container">
+        <h2>Discussion & Comment Your Thoughts</h2>
+        <div id="error" class="error"></div>
+        <form id="postForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Type your message" required></textarea>
+            </div>
+            <button type="button" id="postButton">Post Message</button>
+        </form>
+
+        <div class="discussion-board" id="discussionBoard"></div>
+    </div>
+
+    <script>
+        document.getElementById('postButton').addEventListener('click', function() {
+            // Clear previous error
+            document.getElementById('error').innerText = '';
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validate form inputs
+            if (name === '' || message === '') {
+                document.getElementById('error').innerText = 'Name and message cannot be empty.';
+                return;
+            }
+
+            // Add message to the discussion board
+            const discussionBoard = document.getElementById('discussionBoard');
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message');
+
+            const timestamp = new Date().toLocaleString();
+
+            newMessage.innerHTML = `
+                <p class="name">${name}</p>
+                <p class="timestamp">${timestamp}</p>
+                <p>${message}</p>
+            `;
+
+            discussionBoard.appendChild(newMessage);
+
+            // Clear form fields
+            document.getElementById('name').value = '';
+            document.getElementById('message').value = '';
+        });
+    </script>
+
+</body>
+</html>
