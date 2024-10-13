@@ -1,0 +1,124 @@
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: white;
+        background-color: #f4f4f4;
+    }
+
+    .board-container {
+        width: 100%;
+        max-width: 800px;
+        padding: 20px;
+        margin: 0 auto;
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+        margin: 0 auto;
+        padding: 20px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        resize: vertical;
+        height: 100px;
+        font-size: medium;
+        color: black;
+    }
+
+    .discussion-board {
+        margin-top: 30px;
+        max-height: 400px; 
+        overflow-y: auto; 
+    }
+
+    .message {
+        border-bottom: 1px solid #ccc;
+        padding: 15px 0;
+    }
+
+    .message:last-child {
+        border-bottom: none;
+    }
+
+    .message p {
+        margin-bottom: 5px;
+    }
+
+    .message .name {
+        font-weight: bold;
+    }
+
+    .message .timestamp {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .container {
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+</style>
+
+{% extends "base.html" %}
+
+{% block title %}Discussion Board - CopayHero{% endblock %}
+
+{% block content %}
+    <div class="board-container">
+        <h2>Comment Your Thoughts</h2>
+
+        <form id="postForm" method="POST" action="{{ url_for('discussion_board') }}">
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="content" placeholder="Type your message" required></textarea>
+            </div>
+            <button type="submit" id="postButton">Post Message</button>
+        </form>
+
+        <div class="discussion-board">
+            {% for post in posts %}
+            <div class="message">
+                <p class="name">{{ post.user.first_name }} {{ post.user.last_name }}</p>
+                <p class="timestamp">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                <p>{{ post.content }}</p>
+            </div>
+            {% else %}
+            <p>No posts yet. Be the first to post!</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

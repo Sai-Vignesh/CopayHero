@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Home - CopayHero{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1>CopayHero GPT</h1>
+        <p class="text">Making Medications Easy and Accessible for <span style="text-transform: uppercase;">everyone...</span></p>
+        <a href="{{ url_for('chat_now') }}">
+            <button type="button">Chat Now</button> 
+        </a>
+    </div>
+</div>
+{% endblock %}

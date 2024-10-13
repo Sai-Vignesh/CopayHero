@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} CopayHero{% endblock %} </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img src="{{ url_for('static', filename='images/copayhero_logo-removebg-preview.webp') }}" class="logo" alt="CopayHero Logo">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('discussion_board') }}">Discussion</a></li>
+
+                    {% if 'user_first_name' in session %}
+                        <li><a href="{{ url_for('user_page', user_id=session['user_id']) }}">Hello, {{ session['user_first_name'] }}</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('register') }}">Sign Up</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

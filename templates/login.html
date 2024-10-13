@@ -1,0 +1,122 @@
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        background-color: #f4f4f4;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        width: 50%;
+        max-width: 600px;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    input, select, textarea {
+        color: black;
+        font-size: medium;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 20px;
+        margin-top: 15px;
+        align-items: center;
+        max-width: 800px;
+    }
+
+    .container {
+        align-items: center;
+        justify-content: center;
+    }
+
+</style>
+
+{% extends "base.html" %}
+
+{% block title %}Login - CopayHero{% endblock %}
+
+<div class="container">
+    {% block content %}
+    <h2 style="padding: 10px; padding-left: 0px;">Login</h2>
+    <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div id="passwordError" class="error"></div>
+        </div>
+        <button type="submit" id="loginButton">Login</button>
+    </form>
+    {% endblock %}
+</div>
+
+<script>
+    document.getElementById('loginButton').addEventListener('click', function () {
+        // Clear previous errors
+        clearErrors();
+
+        // Get form values
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        let valid = true;
+
+        // Validate email
+        if (!validateEmail(email)) {
+            valid = false;
+            document.getElementById('emailError').innerText = 'Please enter a valid email address';
+        }
+
+        // Validate password
+        if (password.length < 6) {
+            valid = false;
+            document.getElementById('passwordError').innerText = 'Password must be at least 6 characters long';
+        }
+
+        // If valid, simulate form submission
+        if (valid) {
+            alert('Login successful!');
+        }
+    });
+
+    // Function to clear error messages
+    function clearErrors() {
+        document.getElementById('emailError').innerText = '';
+        document.getElementById('passwordError').innerText = '';
+    }
+
+    // Function to validate email using a regular expression
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return re.test(email);
+    }
+</script>
